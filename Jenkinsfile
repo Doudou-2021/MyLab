@@ -11,14 +11,14 @@ pipeline{
         // Stage 1. Build
         stage ('Build'){
             steps {
-                sh 'mv clean install package'
+                sh 'mvn clean install package'
             }
         }
 
         // Stage 2. : Testing
         stage ('Test'){
             steps {
-                echo ' testing.....'
+                echo 'testing.....'
             }
         }
 
