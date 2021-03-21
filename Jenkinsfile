@@ -4,13 +4,14 @@ pipeline{
     tools {
         maven 'maven'
     }
+    /*
     environment{
         ArtifactId = readMavenPom().getArtifactId()
         Version = readMavenPom().getVersion()
         Name = readMavenPom().getName()
         GroupId = readMavenPom().getGroupId()
-
     }
+    */
 
     stages {
         // Specify various stage with in stages
@@ -32,19 +33,22 @@ pipeline{
         // Stage 3. : Publish the artefacts to Nexus
         stage ('Publish to Nexus'){
             steps{
-                nexusArtifactUploader artifacts: [[artifactId: "${ArtifactId}", 
+                nexusArtifactUploader artifacts: 
+                [[artifactId: 'VinayDevOpsLab', 
                 classifier: '', 
-                file: 'target/VinayDevOpsLab-0.0.3-SNAPSHOT.war', 
+                file: 'target/VinayDevOpsLab-0.0.4-SNAPSHOT.war', 
                 type: 'war']], 
                 credentialsId: '305c149f-d4a2-4219-a2b8-690661e73241', 
-                groupId: "${GroupId}", 
+                groupId: 'com.vinaysdevopslab', 
                 nexusUrl: '172.20.0.234:8081', 
                 nexusVersion: 'nexus3', 
                 protocol: 'http', 
                 repository: 'VinaysDevOpsLab-SNAPSHOT', 
-                version: "${Version}'"
+                version: '0.0.4-SNAPSHOT'
             }
         }
+
+        /*
 
         // Stage 4. : Print Variable Pom information
         stage ('Print environment variables'){
@@ -55,6 +59,8 @@ pipeline{
                 echo "Name is '${Name}'"
             }
         }
+
+        */
 
 
         // Stage 5. : Deploying
